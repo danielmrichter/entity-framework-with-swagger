@@ -6,7 +6,7 @@ class BakerTable extends Component {
     state = {
         errors: [],
         successMessage: null,
-        isLoading: true,
+        loading: true,
         newBaker: {
             name: ''
         }
@@ -60,11 +60,11 @@ class BakerTable extends Component {
                 </thead>
                 <tbody>
                     {this.props.bakers.map(baker =>
-                        <tr key={`baker-row-baker.id`}>
+                        <tr key={`baker-row-${baker.id}`}>
                             <td>{baker.id}</td>
                             <td>{baker.name}</td>
                             <td>{baker.breadCount}</td>
-                            <td><button onClick={() => this.deleteBaker(baker.id)}>Delete</button></td>
+                            <td><button onClick={() => this.deleteBaker(baker.id)} className='btn btn-sm btn-danger'>Delete</button></td>
                         </tr>
                     )}
                 </tbody>

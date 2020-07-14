@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 class BreadInventory extends Component {
    state = {
-      isLoading: true,
+      loading: true,
       errors: [],
       successMessage: null,
       newBread: {
@@ -42,9 +42,9 @@ class BreadInventory extends Component {
                      <td>{bread.bakedBy.name}</td>
                      <td>{bread.inventory}</td>
                      <td>
-                        <button onClick={() => this.bake(bread.id)}>bake</button>
-                        <button onClick={() => this.sell(bread.id)}>eat</button>
-                        <button onClick={() => this.delete(bread.id)}>del</button>
+                        <button onClick={() => this.bake(bread.id)} className='btn btn-sm btn-info'>bake</button>
+                        <button onClick={() => this.sell(bread.id)} className='btn btn-sm btn-info ml-1 mr-1'>eat</button>
+                        <button onClick={() => this.delete(bread.id)} className='btn btn-sm btn-danger'>del</button>
                      </td>
                   </tr>
                )}
