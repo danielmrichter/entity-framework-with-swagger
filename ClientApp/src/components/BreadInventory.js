@@ -40,7 +40,7 @@ export default class BreadInventory extends Component {
                      <td>{bread.bakedBy.name}</td>
                      <td>{bread.inventory}</td>
                      <td>
-                        <button onClick={() => this.bake(bread.id)}>bake</button> 
+                        <button onClick={() => this.bake(bread.id)}>bake</button>
                         <button onClick={() => this.sell(bread.id)}>eat</button>
                         <button onClick={() => this.delete(bread.id)}>del</button>
                      </td>
@@ -62,23 +62,29 @@ export default class BreadInventory extends Component {
          : this.renderTable();
 
       return (
-         <div>
-            <h1 id="tableLabel" >Bread Inventory</h1>
-            <input value={this.state.newBread.name} onChange={(e) => this.setState({ newBread: { ...this.state.newBread, name: e.target.value }})} />
-            <select value={this.state.newBread.breadType} onChange = {(e) => this.setState({ newBread: { ...this.state.newBread, breadType: e.target.value }})}>
-               <option value='sourdough'>Sourdough</option>
-               <option value='rye'>Rye</option>
-               <option value='focaccia'>Focaccia</option>
-               <option value='white'>White</option>
-            </select>
-            <input value={this.state.newBread.description} onChange={(e) => this.setState({ newBread: { ...this.state.newBread, description: e.target.value }})} />
-            <input type='number' value={this.state.newBread.inventory} onChange={(e) => this.setState({ newBread: { ...this.state.newBread, inventory: Number(e.target.value) }})} />
-            <input type='number' value={this.state.newBread.bakedById} onChange={(e) => this.setState({ newBread: { ...this.state.newBread, bakedById: Number(e.target.value) }})} />
-            <button onClick={this.addBread}>Add Bread</button>
-
+         <>
+            <h2 id="tableLabel" >Bread Inventory</h2>
+            <div class="form-group row ml-0 mr-0">
+               <input
+                  class={"form-control col-2"}
+                  value={this.state.newBread.name}
+                  onChange={(e) => this.setState({ newBread: { ...this.state.newBread, name: e.target.value } })}
+               />
+               <select class={"form-control col-2"} value={this.state.newBread.breadType} onChange={(e) => this.setState({ newBread: { ...this.state.newBread, breadType: e.target.value } })}>
+                  <option value='sourdough'>Sourdough</option>
+                  <option value='rye'>Rye</option>
+                  <option value='focaccia'>Focaccia</option>
+                  <option value='white'>White</option>
+               </select>
+               <input class={"form-control col-2"} value={this.state.newBread.description} onChange={(e) => this.setState({ newBread: { ...this.state.newBread, description: e.target.value } })} />
+               <input class={"form-control col-1"} type='number' value={this.state.newBread.inventory} onChange={(e) => this.setState({ newBread: { ...this.state.newBread, inventory: Number(e.target.value) } })} />
+               <input class={"form-control col-1"} type='number' value={this.state.newBread.bakedById} onChange={(e) => this.setState({ newBread: { ...this.state.newBread, bakedById: Number(e.target.value) } })} />
+               <button class={"form-control btn btn-primary col-2 ml-2"} onClick={this.addBread}>Add Bread</button>
+            </div>
+            <hr/>
             <p>Here's what we have in stock now!</p>
             {contents}
-         </div>
+         </>
       );
    }
 
@@ -90,7 +96,7 @@ export default class BreadInventory extends Component {
    bake = async (id) => {
       const response = await axios.put(`api/bread/${id}/bake`);
       this.fetchData();
-   }   
+   }
    sell = async (id) => {
       const response = await axios.put(`api/bread/${id}/sell`);
       this.fetchData();

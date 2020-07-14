@@ -10,6 +10,7 @@ export class Home extends Component {
       <>
         <h1>Welcome To Blaine's Bakery</h1>
         <BreadInventory />
+        <br/>
         <BakersTable />
       </>
     );

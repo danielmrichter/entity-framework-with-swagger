@@ -45,12 +45,18 @@ export default class BakerTable extends Component {
          : this.renderTable();
 
       return (
-         <div>
-            <h1 id="tableLabel" >Bakers</h1>
-            <input value={this.state.newBaker.name} onChange={(event) => this.setState({ newBaker: { ...this.state.newBaker, name: event.target.value}})} />
-            <button onClick={this.submitBaker}>Add Baker</button>
+         <>
+            <h2 id="tableLabel">Bakers</h2>
+            <div class="form-group row ml-0">
+                <input 
+                    value={this.state.newBaker.name} 
+                    onChange={(event) => this.setState({ newBaker: { ...this.state.newBaker, name: event.target.value}})}
+                    class={'form-control col-3'}
+                />
+                <button onClick={this.submitBaker} class={'btn btn-primary col-2'}>Add Baker</button>
+            </div>
             {contents}
-         </div>
+         </>
       );
    }
 
