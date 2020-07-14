@@ -22,7 +22,7 @@ class BreadInventory extends Component {
 
    renderTable = () => {
       return (
-         <table className='table table-striped' aria-labelledby="tabelLabel">
+         <table className='table table-striped table-border' aria-labelledby="tabelLabel">
             <thead>
                <tr>
                   <th>Bread</th>
@@ -171,6 +171,7 @@ class BreadInventory extends Component {
       // this.setState({ breadInventory: response.data, loading: false });
       this.props.dispatch({ type: 'SET_BREAD', payload: response.data });
       this.props.fetchBakers();
+      this.setState({ loading: false });
    }
 }
 

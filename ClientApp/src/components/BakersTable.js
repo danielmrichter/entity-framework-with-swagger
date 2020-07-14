@@ -14,6 +14,7 @@ class BakerTable extends Component {
 
     componentDidMount = () => {
         this.props.fetchBakers();
+        this.setState({ loading: false });
     }
 
     renderMessages = () => {
