@@ -25,10 +25,10 @@ namespace dotnet_bakery
         {
             // Add framework services.
             // see if we have an environment variable
-            string DATABASE_URL = Environment.GetEnvironmentVariable("DATABASE_URL");
+            string DATABASE_URL = Environment.GetEnvironmentVariable("DATABASE_URL_STR");
             string connectionString = (DATABASE_URL == null ? Configuration.GetConnectionString("DefaultConnection") : DATABASE_URL);
             Console.WriteLine($"Using connection string: {connectionString}");
-            
+
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseNpgsql(connectionString)
             );
