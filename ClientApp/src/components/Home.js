@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import BreadInventory from './BreadInventory';
 
 export class Home extends Component {
   static displayName = Home.name;
@@ -6,7 +7,8 @@ export class Home extends Component {
   render () {
     return (
       <>
-        <h1>Welcome To The Bakery</h1>
+        <h1>Welcome To Blaine's Bakery</h1>
+        <BreadInventory />
       </>
     );
   }

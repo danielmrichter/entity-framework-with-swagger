@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
+using dotnet_bakery.Models;
 
 namespace dotnet_bakery
 {
@@ -19,12 +22,14 @@ namespace dotnet_bakery
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            services.AddControllersWithViews();
+            // Add framework services.
+            services.AddDbContext<ApplicationContext>(options =>
+                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"))
+            );
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             // In production, the React files will be served from this directory
-            services.AddSpaStaticFiles(configuration =>
-            {
+            services.AddSpaStaticFiles(configuration => {
                 configuration.RootPath = "ClientApp/build";
             });
         }
@@ -59,7 +64,8 @@ namespace dotnet_bakery
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseReactDevelopmentServer(npmScript: "start");
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:3000");
+                    // spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
         }
