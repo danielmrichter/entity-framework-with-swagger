@@ -21,7 +21,7 @@ namespace dotnet_bakery.Controllers
 
         [HttpGet]
         public IEnumerable<BreadInventory> getAllBreads() {
-            return _context.BreadInventory.Include(bread => bread.bakedBy).ToList();
+            return _context.BreadInventory.Include(bread => bread.bakedBy).OrderBy(bread => bread.name).ToList();
             // return _context.BreadItems.ToList();
         }
 

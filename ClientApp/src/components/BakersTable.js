@@ -19,6 +19,7 @@ export default class BakerTable extends Component {
          <table className='table table-striped' aria-labelledby="tabelLabel">
             <thead>
                <tr>
+                  <th>ID</th>
                   <th>Baker Name</th>
                   <th>Bread Count</th>
                   <th></th>
@@ -27,6 +28,7 @@ export default class BakerTable extends Component {
             <tbody>
                {this.state.bakers.map(baker =>
                   <tr key={`baker-row-baker.id`}>
+                     <td>{baker.id}</td>
                      <td>{baker.name}</td>
                      <td>{baker.breadCount}</td>
                      <td><button onClick={() => this.deleteBaker(baker.id)}>Delete</button></td>
