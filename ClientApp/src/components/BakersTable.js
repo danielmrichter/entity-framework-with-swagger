@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
 
-export default class BakerTable extends Component {
+class BakerTable extends Component {
    state = {
       isLoading: true,
-      bakers: [],
       newBaker: {
           name: ''
       }
    }
 
    componentDidMount = () => {
-      this.fetchData();
+      this.props.fetchBakers();
    }
 
    renderTable = () => {
@@ -26,7 +26,7 @@ export default class BakerTable extends Component {
                </tr>
             </thead>
             <tbody>
-               {this.state.bakers.map(baker =>
+               {this.props.bakers.map(baker =>
                   <tr key={`baker-row-baker.id`}>
                      <td>{baker.id}</td>
                      <td>{baker.name}</td>
@@ -47,13 +47,13 @@ export default class BakerTable extends Component {
       return (
          <>
             <h2 id="tableLabel">Bakers</h2>
-            <div class="form-group row ml-0">
+            <div className="form-group row ml-0">
                 <input 
                     value={this.state.newBaker.name} 
                     onChange={(event) => this.setState({ newBaker: { ...this.state.newBaker, name: event.target.value}})}
-                    class={'form-control col-3'}
+                    className={'form-control col-3'}
                 />
-                <button onClick={this.submitBaker} class={'btn btn-primary col-2'}>Add Baker</button>
+                <button onClick={this.submitBaker} className={'btn btn-primary col-2'}>Add Baker</button>
             </div>
             {contents}
          </>
@@ -62,17 +62,15 @@ export default class BakerTable extends Component {
 
    deleteBaker = async (id) => {
        await axios.delete(`api/baker/${id}`)
-       this.fetchData();
+       this.props.fetchBakers();
    }
 
    submitBaker = async () => {
        await axios.post('api/baker', this.state.newBaker);
        this.setState({ newBaker: { ...this.state.newBaker, name: '' }});
-       this.fetchData();
-   }
-
-   fetchData = async () => {
-      const response = await axios.get('api/baker');
-      this.setState({ bakers: response.data, loading: false });
+       this.props.fetchBakers();
    }
 }
+
+const mapStateToProps = (state) => ({bakers: state.bakers});
+export default connect(mapStateToProps)(BakerTable);

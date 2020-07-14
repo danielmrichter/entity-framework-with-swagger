@@ -16,6 +16,11 @@ namespace dotnet_bakery.Controllers
             _context = context;
         }
 
+        [HttpGet("intTest")]
+        public int getInt() {
+            return 1;
+        }
+
         // GET /
         // Returns all bakers
         [HttpGet]
