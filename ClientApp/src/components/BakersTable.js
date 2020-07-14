@@ -84,6 +84,7 @@ class BakerTable extends Component {
                 {this.renderMessages()}
                 <div className="form-group row ml-0">
                     <input
+                        placeholder='Baker Name'
                         value={this.state.newBaker.name}
                         onChange={(event) => this.setState({ newBaker: { ...this.state.newBaker, name: event.target.value } })}
                         className={'form-control col-3'}
