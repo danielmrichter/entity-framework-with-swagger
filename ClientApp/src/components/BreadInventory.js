@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 class BreadInventory extends Component {
    state = {
       isLoading: true,
+      errors: [],
+      successMessage: null,
       newBread: {
          name: '',
          breadType: 'sourdough',
@@ -33,7 +35,7 @@ class BreadInventory extends Component {
             </thead>
             <tbody>
                {this.props.breadInventory.map(bread =>
-                  <tr key={`bread-row-bread.id`}>
+                  <tr key={`bread-row-${bread.id}`}>
                      <td>{bread.name}</td>
                      <td>{bread.breadType}</td>
                      <td>{bread.description}</td>
@@ -52,8 +54,58 @@ class BreadInventory extends Component {
    }
 
    addBread = async () => {
-      await axios.post('api/bread', this.state.newBread);
-      this.fetchData();
+      try {
+         await axios.post('api/bread', this.state.newBread);
+         this.fetchData();
+         this.setState({ 
+            errors: [],
+            success: 'Successfully added bread!'
+         });
+      } catch (err) {
+         console.log(err);
+         if (err.response.status === 400) {
+            // validation errors
+            this.setState({errors: err.response.data.errors, successMessage: null});
+         }
+      }
+   }
+
+   renderMessages = () => {
+      /*
+         Look into the local state to see if we have any errors
+         that are derived from the backend validation, and display them
+      */
+      const errors = [];
+      if (this.state.errors) {
+         for (let err in this.state.errors) {
+            // check for special case errors for human readability
+            // .NET throws a weird validation error for database foreign key 
+            // violations starting with $. for the field name... weird.
+            if (err === '$.bakedById') {
+               errors.push(<li>Invalid Baker ID</li>)
+            } else {
+               errors.push(<li>{this.state.errors[err]}</li>);
+            }
+         }
+      }
+
+      if (errors.length > 0) {
+         return (
+         <div className={'alert alert-danger'}>
+            <p>The following errors prevented a successful save:</p>
+            <ul>{errors}</ul>
+         </div>);
+      }
+
+      if (this.state.successMessage !== null) {
+         return (
+            <p className={'alert alert-success'}>
+               {this.state.successMessage}
+            </p>
+         );
+      }
+
+      return null;
    }
 
    render() {
@@ -64,6 +116,7 @@ class BreadInventory extends Component {
       return (
          <>
             <h2 id="tableLabel" >Bread Inventory</h2>
+            {this.renderMessages()}
             <div className="form-group row ml-0 mr-0">
                <input
                   placeholder={'bread name'}
@@ -98,6 +151,10 @@ class BreadInventory extends Component {
    delete = async (id) => {
       await axios.delete(`api/bread/${id}`);
       this.fetchData();
+      this.setState({
+         errors: [],
+         success: `Successfully removed bread`
+      });
    }
 
    bake = async (id) => {
