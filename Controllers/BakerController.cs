@@ -15,10 +15,5 @@ namespace dotnet_bakery.Controllers
         public BakerController(ApplicationContext context) {
             _context = context;
         }
-
-        [HttpGet("intTest")]
-        public int getInt() {
-            return 1;
-        }
     }
 }
