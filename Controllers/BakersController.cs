@@ -9,10 +9,10 @@ namespace dotnet_bakery.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class BakerController : ControllerBase
+    public class BakersController : ControllerBase
     {
         private readonly ApplicationContext _context;
-        public BakerController(ApplicationContext context) {
+        public BakersController(ApplicationContext context) {
             _context = context;
         }
     }
