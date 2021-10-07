@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace DotnetBakery
 {
-    public class Baker 
+    public class Bread 
     {
     }
 }

@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-namespace dotnet_bakery.Models
+namespace DotnetBakery.Models
 {
     public class ApplicationContext : DbContext
     {

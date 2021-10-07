@@ -6,10 +6,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
-using dotnet_bakery.Models;
+using DotnetBakery.Models;
 using System;
 
-namespace dotnet_bakery
+namespace DotnetBakery
 {
     public class Startup
     {

@@ -5,10 +5,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using dotnet_bakery.Models;
+using DotnetBakery.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace dotnet_bakery.Controllers
+namespace DotnetBakery.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
