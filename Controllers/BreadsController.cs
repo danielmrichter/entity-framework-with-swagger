@@ -12,7 +12,7 @@ namespace DotnetBakery.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class BreadController : ControllerBase
+    public class BreadsController : ControllerBase
     {
         private readonly ApplicationContext _context;
         public BreadController(ApplicationContext context) {
