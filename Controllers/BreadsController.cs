@@ -15,7 +15,7 @@ namespace DotnetBakery.Controllers
     public class BreadsController : ControllerBase
     {
         private readonly ApplicationContext _context;
-        public BreadController(ApplicationContext context) {
+        public BreadsController(ApplicationContext context) {
             _context = context;
         }
     }
