@@ -9,6 +9,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
+using Microsoft.AspNetCore.OpenApi;
+
+
 namespace DotnetBakery
 {
     public class Program
@@ -24,5 +27,6 @@ namespace DotnetBakery
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
     }
 }
