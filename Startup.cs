@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using DotnetBakery.Models;
 using System;
+using Microsoft.OpenApi.Models;
 
 namespace DotnetBakery
 {
@@ -34,8 +35,19 @@ namespace DotnetBakery
             );
 
             // Added these to call the swagger ui
-            services.AddControllers();
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Da Bakery API",
+                    Description = "Da Bakers bake Da Bread.",
+                });
+
+                // using System.Reflection;
+                var xmlFilename = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                options.IncludeXmlComments(System.IO.Path.Combine(AppContext.BaseDirectory, xmlFilename));
+            });
 
             services.AddMvc();
 
@@ -48,23 +60,26 @@ namespace DotnetBakery
         {
             if (env.IsDevelopment())
             {
+
                 app.UseDeveloperExceptionPage();
+                // Tell the app to use swagger
+                app.UseSwagger();
+                // Tell the app to use the swagger ui.
+                // Will be located at /swagger
+                app.UseSwaggerUI(c =>
+                  {
+                      // This tells swagger where the json will be built for it
+                      c.SwaggerEndpoint("/swagger/v1/swagger.json", "Da Bakery v1");
+                  });
             }
             else
             {
                 app.UseExceptionHandler("/Error");
             }
-            // Tell the app to use swagger
-            app.UseSwagger();
+
 
             app.UseRouting();
-            // Tell the app to use the swagger ui.
-                // Will be located at /swagger
-            app.UseSwaggerUI(c =>
-              {
-                // This tells swagger where the json will be built for it
-                  c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-              });
+
 
             app.UseEndpoints(endpoints =>
             {
